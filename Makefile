@@ -6,21 +6,17 @@
 #    By: grapapor <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/12 17:26:09 by grapapor          #+#    #+#              #
-#    Updated: 2018/07/17 16:40:53 by grapapor         ###   ########.fr        #
+#    Updated: 2018/07/17 16:54:29 by grapapor         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC =	gcc
+NAME = libft.a
 
-FLAG =	-c -Wall -Wextra -Werror
+OBJECT = $(SRC:.c=.o)
 
-NAME =	libft.a
+CFLAGS = -Wall -Werror -Wextra -I libft.h
 
-LIB =	ar rc
-
-RLIB =	ranlib
-
-SRCS =	ft_atoi.c \
+SRC =	ft_atoi.c \
 		ft_bzero.c \
 		ft_create_elem.c \
 		ft_isalnum.c \
@@ -65,7 +61,8 @@ SRCS =	ft_atoi.c \
 		ft_strclr.c \
 		ft_strcmp.c \
 		ft_strcpy.c \
-		ft_strdel.c \ft_putchar.c \
+		ft_strdel.c \
+		ft_putchar.c \
 		ft_putstr.c \
 		ft_isalpha.c \
 		ft_isdigit.c \
@@ -138,21 +135,30 @@ SRCS =	ft_atoi.c \
 		ft_tolower.c \
 		ft_toupper.c \
 
-OBJS =	$(SRCS:.c=.o)
+.PHONY: all clean fclean re
+CC =	gcc
+
+FLAG =	-c -Wall -Wextra -Werror
+
+NAME =	libft.a
+
+LIB =	ar rc
+
+RLIB =	ranlib
 
 all: $(NAME)
 
-$(NAME):
-		$(CC) $(FLAG) $(SRCS)
-		$(LIB) $(NAME) $(OBJS)
-		$(RLIB) $(NAME)
+$(NAME): $(OBJECT)
+	ar rc $(NAME) $(OBJECT)
+	ranlib $(NAME)
 
-clean:
-		rm -f $(OBJS)
+$(OBJECT): $(SRC)
+	@gcc $(CFLAGS) -c $(SRC)
 
-fclean:	clean
-		rm -f $(NAME)
+clean: 
+	rm -f $(OBJECT)
+
+fclean: clean
+	rm -f $(NAME)
 
 re: fclean all
-
-.PHONY: all clean fclean re

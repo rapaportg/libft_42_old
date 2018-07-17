@@ -6,7 +6,7 @@
 /*   By: grapapor <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 10:48:37 by grapapor          #+#    #+#             */
-/*   Updated: 2018/07/17 16:28:33 by grapapor         ###   ########.fr       */
+/*   Updated: 2018/07/17 16:53:45 by grapapor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define LIBFT_H
 # include <unistd.h>
 # include <stdlib.h>
-# include "ft_typedef_struct.h"
 
 int			ft_isalpha(int c);
 int			ft_isdigit(int c);
@@ -40,7 +39,7 @@ size_t		ft_strlcat(char *dest, const char *src, size_t size);
 char		*ft_strchr(const char *s, int c);
 char		*ft_strrchr(const char *s, int c);
 
-void		*ft_memset(void *dest, int c, size_t len);
+void		*ft_memset(void *dest, int c, size_t size);
 void		*ft_bzero(void *dest, size_t len);
 void		*ft_memcpy(void *dest, const void *src, size_t n);
 void		*ft_memmove(void *dest, const void *src, size_t len);
@@ -72,6 +71,13 @@ void		ft_putchar_fd(char c, int fd);
 void		ft_putstr_fd(const char *s, int fd);
 void		ft_putendl_fd(const char *s, int fd);
 void		ft_putnbr_fd(int nb, int fd);
+
+typedef struct		s_list
+{
+	void			*content;
+	size_t			content_size;
+	struct s_list	*next;
+}					t_list;
 
 t_list		*ft_lstnew(void const *content, size_t size);
 void		ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
