@@ -6,7 +6,7 @@
 #    By: grapapor <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/12 17:26:09 by grapapor          #+#    #+#              #
-#    Updated: 2018/07/17 16:54:29 by grapapor         ###   ########.fr        #
+#    Updated: 2018/07/17 17:20:49 by grapapor         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -136,24 +136,16 @@ SRC =	ft_atoi.c \
 		ft_toupper.c \
 
 .PHONY: all clean fclean re
-CC =	gcc
 
-FLAG =	-c -Wall -Wextra -Werror
-
-NAME =	libft.a
-
-LIB =	ar rc
-
-RLIB =	ranlib
+RLIB = ranlib
+LIB = ar rc
 
 all: $(NAME)
 
 $(NAME): $(OBJECT)
-	ar rc $(NAME) $(OBJECT)
-	ranlib $(NAME)
-
-$(OBJECT): $(SRC)
 	@gcc $(CFLAGS) -c $(SRC)
+	$(LIB) $(NAME) $(OBJECT)
+	$(RLIB) $(NAME)
 
 clean: 
 	rm -f $(OBJECT)
