@@ -6,7 +6,7 @@
 /*   By: grapapor <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/11 18:19:40 by grapapor          #+#    #+#             */
-/*   Updated: 2018/07/13 17:00:10 by grapapor         ###   ########.fr       */
+/*   Updated: 2018/07/27 13:08:04 by grapapor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_putstr(char const *s)
 {
+	if (!s || !(*s))
+		return ;
 	while (*s)
 	{
 		ft_putchar(*s);
