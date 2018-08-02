@@ -3,80 +3,85 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grapapor <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: xzhu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/11 16:25:30 by grapapor          #+#    #+#             */
-/*   Updated: 2018/07/16 20:01:37 by grapapor         ###   ########.fr       */
+/*   Created: 2018/07/10 17:40:28 by xzhu              #+#    #+#             */
+/*   Updated: 2018/07/10 17:40:30 by xzhu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_isws(char c, char delimiter)
-{
-	return (c == delimiter);
-}
-
-static int		ft_wc(const char *s, char delimiter)
+static int		count_word(char const *str, char c)
 {
 	int		i;
+	int		j;
 
 	i = 0;
-	while (*s)
+	j = 0;
+	if (!str || !c)
+		return (0);
+	while (str[i] != '\0')
 	{
-		if (ft_isws(*s, delimiter))
-			s++;
-		else
-		{
+		while (str[i] == c && str[i] != '\0')
 			i++;
-			s++;
-			while (*s && !ft_isws(*s, delimiter))
-				s++;
-		}
+		if (str[i] != '\0')
+			j++;
+		while (str[i] != c && str[i] != '\0')
+			i++;
 	}
-	return (i);
+	return (j);
 }
 
-static char		*ft_word_build(char **str, char delimiter)
+static int		append_output(int data[2], char const *str, char **out, char c)
 {
-	char		*bptr;
-	char		*bsptr;
-	char		*sptr;
+	int x;
 
-	sptr = *str;
-	while (ft_isws(*sptr, delimiter))
-		sptr++;
-	*str = sptr;
-	while (!ft_isws(*sptr, delimiter))
-		sptr++;
-	if (!(bptr = ft_memalloc(sizeof(char) * (sptr - *str))))
-		return (NULL);
-	bsptr = bptr;
-	while (sptr > *str)
-		*bsptr++ = *((*str)++);
-	*bsptr = '\0';
-	while (**str && ft_isws(**str, delimiter))
-		++*str;
-	return (bptr);
-}
-
-char			**ft_strsplit(char *s, char c)
-{
-	char	**buffer;
-	char	**bptr;
-	int		i;
-
-	if (s == NULL)
-		return (NULL);
-	i = ft_wc(s, c);
-	if (!(buffer = ft_memalloc(sizeof(char *) * (i + 1))))
-		return (NULL);
-	bptr = buffer;
-	while (i--)
+	x = 0;
+	while (str[data[0]] != c && str[data[0]] != '\0')
 	{
-		if (!(*bptr++ = ft_word_build(&s, c)))
-			return (NULL);
+		out[data[1]][x] = str[data[0]];
+		data[0]++;
+		x++;
 	}
-	*bptr = NULL;
-	return (buffer);
+	out[data[1]][x] = '\0';
+	return (data[0]);
+}
+
+static void		split_helper(char const *s, int *i, int *k, char c)
+{
+	while (s[*i] == c && s[*i] != '\0')
+		(*i)++;
+	*k = *i;
+	while (s[*k] != c && s[*k] != '\0')
+		(*k)++;
+}
+
+char			**ft_strsplit(char const *s, char c)
+{
+	char	**out;
+	int		word_count;
+	int		i;
+	int		j;
+	int		k;
+
+	i = 0;
+	j = 0;
+	k = 0;
+	if (!s)
+		return (NULL);
+	word_count = count_word(s, c);
+	if (!(out = (char**)malloc(sizeof(*out) * (word_count + 1))))
+		return (NULL);
+	while (s[i] != '\0')
+	{
+		split_helper(s, &i, &k, c);
+		if (!(out[j] = (char*)malloc(sizeof(**out) * (k - i + 1))))
+			return (NULL);
+		i = append_output((int[2]){i, j}, s, out, c);
+		if (j < word_count)
+			j++;
+	}
+	out[j] = 0;
+	return (out);
 }

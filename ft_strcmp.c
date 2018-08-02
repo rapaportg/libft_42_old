@@ -3,21 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grapapor <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: xzhu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/09 11:39:48 by grapapor          #+#    #+#             */
-/*   Updated: 2018/07/13 15:49:50 by grapapor         ###   ########.fr       */
+/*   Created: 2018/07/10 14:02:31 by xzhu              #+#    #+#             */
+/*   Updated: 2018/07/10 14:02:34 by xzhu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strcmp(char *s1, char *s2)
+int		ft_strcmp(const char *s1, const char *s2)
 {
-	while (*s1 && (*s1 == *s2))
+	unsigned char	*s1v;
+	unsigned char	*s2v;
+	size_t			i;
+
+	s1v = (unsigned char*)s1;
+	s2v = (unsigned char*)s2;
+	i = 0;
+	while (s1v[i] != '\0')
 	{
-		s1++;
-		s2++;
+		if (s1v[i] != s2v[i])
+			return (s1v[i] - s2v[i]);
+		i++;
 	}
-	return (*(unsigned char *)s1 - *(unsigned char *)s2);
+	if (s2v[i] != '\0')
+		return (s1v[i] - s2v[i]);
+	return (0);
 }

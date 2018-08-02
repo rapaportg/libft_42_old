@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grapapor <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: xzhu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/11 11:30:47 by grapapor          #+#    #+#             */
-/*   Updated: 2018/07/16 20:02:23 by grapapor         ###   ########.fr       */
+/*   Created: 2018/07/10 14:34:31 by xzhu              #+#    #+#             */
+/*   Updated: 2018/07/10 14:34:32 by xzhu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*tmp;
-	int		i;
+	size_t	l1;
+	size_t	l2;
+	char	*out;
 
-	if (s1 == NULL || s2 == NULL)
+	if (!s1 || !s2)
 		return (NULL);
-	i = 0;
-	if (!(tmp = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1))))
+	l1 = ft_strlen(s1);
+	l2 = ft_strlen(s2);
+	out = ft_strnew(l1 + l2);
+	if (!out)
 		return (NULL);
-	while (*s1)
-		*(tmp + i++) = *(s1++);
-	while (*s2)
-		*(tmp + i++) = *(s2++);
-	*(tmp + i) = '\0';
-	return (tmp);
+	ft_strcpy(out, s1);
+	ft_strcat(out, s2);
+	return (out);
 }

@@ -3,39 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grapapor <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: xzhu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/09 15:34:57 by grapapor          #+#    #+#             */
-/*   Updated: 2018/07/13 15:52:05 by grapapor         ###   ########.fr       */
+/*   Created: 2018/07/10 23:19:06 by xzhu              #+#    #+#             */
+/*   Updated: 2018/07/10 23:19:15 by xzhu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(char *s1, char *s2, size_t n)
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	size_t	nb;
-	char	*tmp1;
-	char	*tmp2;
+	char	*found;
+	size_t	val[3];
 
-	if (!*s2)
-		return ((void *)s1);
-	while (n-- && *s1)
+	val[0] = 0;
+	val[1] = 0;
+	if (*needle == '\0')
+		return ((char *)haystack);
+	while (haystack[val[1]] != '\0' && val[1] < len)
 	{
-		if (*s1 == *s2)
+		val[2] = val[1];
+		while (needle[val[0]] == haystack[val[2]] && val[0] + val[1] < len)
 		{
-			nb = n;
-			tmp1 = (void *)s1 + 1;
-			tmp2 = (void *)s2 + 1;
-			while (nb-- && *tmp1 && *tmp2 && *tmp1 == *tmp2)
+			if (needle[val[0] + 1] == '\0')
 			{
-				++tmp1;
-				++tmp2;
+				found = (char *)&haystack[val[1]];
+				return (found);
 			}
-			if (!*tmp2)
-				return ((void *)s1);
+			val[0]++;
+			val[2]++;
 		}
-		s1++;
+		val[0] = 0;
+		val[1]++;
 	}
 	return (NULL);
 }

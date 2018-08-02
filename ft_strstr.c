@@ -3,37 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grapapor <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: xzhu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/09 11:49:47 by grapapor          #+#    #+#             */
-/*   Updated: 2018/07/13 15:36:51 by grapapor         ###   ########.fr       */
+/*   Created: 2018/07/10 23:12:07 by xzhu              #+#    #+#             */
+/*   Updated: 2018/07/10 23:12:10 by xzhu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strstr(char *s1, char *s2)
+char	*ft_strstr(const char *haystack, const char *needle)
 {
-	char	*it1;
-	char	*it2;
+	char	*found;
+	int		val[3];
 
-	if (!*s2)
-		return ((void *)s1);
-	while (*s1)
+	val[0] = 0;
+	val[1] = 0;
+	if (*needle == '\0')
+		return ((char *)haystack);
+	while (haystack[val[1]] != '\0')
 	{
-		if (*s1 == *s2)
+		val[2] = val[1];
+		while (needle[val[0]] == haystack[val[2]])
 		{
-			it1 = (void *)s1 + 1;
-			it2 = (void *)s2 + 1;
-			while (*it1 && *it2 && *it1 == *it2)
+			if (needle[val[0] + 1] == '\0')
 			{
-				++it1;
-				++it2;
+				found = (char *)&haystack[val[1]];
+				return (found);
 			}
-			if (!*it2)
-				return ((void *)s1);
+			val[0]++;
+			val[2]++;
 		}
-		s1++;
+		val[0] = 0;
+		val[1]++;
 	}
-	return (NULL);
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grapapor <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: xzhu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/09 16:28:02 by grapapor          #+#    #+#             */
-/*   Updated: 2018/07/12 19:53:07 by grapapor         ###   ########.fr       */
+/*   Created: 2018/07/11 14:02:30 by xzhu              #+#    #+#             */
+/*   Updated: 2018/07/11 14:54:39 by xzhu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,23 @@
 
 size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	char		*dest;
-	const char	*s;
-	size_t		n;
-	size_t		dlen;
+	size_t	dlen;
+	size_t	slen;
+	size_t	i;
+	size_t	j;
 
-	dest = dst;
-	s = src;
-	n = size;
-	while (n-- != 0 && *dest != '\0')
-		dest++;
-	dlen = dest - dst;
-	n = size - dlen;
-	if (n == 0)
-		return (dlen + ft_strlen(s));
-	while (*s != '\0')
+	dlen = ft_strlen(dst);
+	slen = ft_strlen(src);
+	i = 0;
+	j = dlen;
+	if (size < dlen + 1)
+		return (slen + size);
+	while (i < size - dlen - 1)
 	{
-		if (n != 1)
-		{
-			*dest++ = *s;
-			n--;
-		}
-		s++;
+		dst[j] = src[i];
+		j++;
+		i++;
 	}
-	*dest = '\0';
-	return (dlen + (s - src));
+	dst[j] = '\0';
+	return (dlen + slen);
 }
