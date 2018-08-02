@@ -6,7 +6,7 @@
 /*   By: grapapor <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 10:48:37 by grapapor          #+#    #+#             */
-/*   Updated: 2018/07/19 16:04:06 by grapapor         ###   ########.fr       */
+/*   Updated: 2018/08/01 18:38:34 by grapapor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,15 @@ int				ft_toupper(int c);
 int				ft_iswhitespace(char c);
 
 size_t			ft_strlen(const char *str);
-char			*ft_strdup(char *str);
-int				ft_strcmp(char *s1, char *s2);
-int				ft_strncmp(const char *s1, const char *s2, int n);
-char			*ft_strstr(char *haystack, char *needle);
-char			*ft_strnstr(char *haystack, char *needle, size_t n);
+char			*ft_strdup(const char *str);
+int				ft_strcmp(const char *s1, const char *s2);
+int				ft_strncmp(const char *s1, const char *s2, size_t n);
+char			*ft_strstr(const char *haystack, const char *needle);
+char			*ft_strnstr(const char *haystack, const char *needle, size_t n);
 char			*ft_strcpy(char *dest, const char *src);
 char			*ft_strncpy(char *src, const char *dest, size_t n);
-char			*ft_strcat(char *dest, char *src);
-char			*ft_strncat(char *dest, char *src, int n);
+char			*ft_strcat(char *dest, const char *src);
+char			*ft_strncat(char *dest, const char *src, size_t n);
 size_t			ft_strlcat(char *dest, const char *src, size_t size);
 char			*ft_strchr(const char *s, int c);
 char			*ft_strrchr(const char *s, int c);
@@ -61,7 +61,7 @@ int				ft_strnequ(char const *s1, char const *s2, size_t n);
 char			*ft_strsub(char const *s, unsigned int start, size_t len);
 char			*ft_strjoin(char const *s1, char const *s2);
 char			*ft_strtrim(char const *s);
-char			**ft_strsplit(char *s, char c);
+char			**ft_strsplit(const char *s, char c);
 char			*ft_itoa(int n);
 void			ft_putchar(char c);
 void			ft_putstr(char const *s);
